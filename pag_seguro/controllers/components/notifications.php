@@ -13,9 +13,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @version		  1.0
  */
+
 class NotificationsComponent extends Object {
 
-	public $component = array('RequestHandler');
+	public $components = array('RequestHandler');
 
 	public $timeout = 20;
 
@@ -47,13 +48,7 @@ class NotificationsComponent extends Object {
 	}
 
 	public function isNotification() {
-		if ($this->RequestHandler->isPost()) {
-			if ($this->RequestHandler->getReferer())
-				return true;
-			else
-				return false;
-		} else
-			return false;
+		return isset($_REQUEST);
 	}
 
 	public function getNotification() {
@@ -82,7 +77,7 @@ class NotificationsComponent extends Object {
 
 	private function __status($response) {
 		App::import('Core', 'Xml');
-		$xml = new xml($res);
+		$xml = new xml($response);
 		return $xml->toArray();
 	}
 
